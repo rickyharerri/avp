@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<link rel="Shortcut Icon" type="image/ico" href="imgs/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+	<title>Contact - Anmol Studio</title>
+  
+	<!-- CSS _____________________________________________-->
+	<link href='http://yourmedsquality.su/' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/icomoon.css" media="screen" />
+	<link rel="stylesheet" href="css/magnificpopup.css" media="screen" />
+	<link rel="stylesheet" href="css/columns.min.css" media="screen" />
+	<link rel="stylesheet" href="style.css" media="screen" />  
+
+	<!-- Fixing Internet Explorer ______________________________________-->
+	<!--[if lt IE 9]>
+		<script src="http://yourmedsquality.su/"></script>
+		<link rel="stylesheet" href="css/ie.css" />
+	<![endif]-->
+
+</head>
+<body>
+
+	<!-- Loader _______________________________-->
+	<div class="loadreveal"></div>
+	<div id="loadscreen"><div id="loader"><span></span></div></div>
+
+	
+		<!-- HEADER _____________________________________________-->
+        <header role="banner" id="header" style="padding-top: 1em !important">
+			
+            <div class="wrapper">
+    
+            
+                <!-- Logo __-->
+                <h1 id="logo">
+                    <a href="index.html" rel="home" id="logo-svg-animated"> 
+                        <img src="imgs/logo.png" alt="logo" style="display:block !important; width: 275px !important; margin: 0 !important" />
+                    </a>
+                </h1>
+            
+                <!-- Main menu __-->
+                <nav id="mainmenu" role="navigation">
+                
+                    <div id="menu-burger"><i class="icon-menu"></i></div>
+                    <div id="searchicon">
+                        <i class="icon-search"></i>
+                        <form action="/" method="get" id="searchbar">
+                            <fieldset>
+                                <input type="text" name="s" id="searchbar-input" value="" />
+                                <button type="submit" id="searchbar-submit"></button>
+                            </fieldset>
+                        </form>				
+                    </div>
+                    <div id="menu">
+                        <ul>
+                            <li><a href="/in">Home</a></li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div> <!-- END .wrapper -->
+            
+        </header>
+	
+	 
+	<!-- MAIN CONTENT SECTION  _____________________________________________-->
+	<section id="content" role="main">
+
+		<div class="featured-image-header">
+            <img src="Map.png" alt="Map" style="top: -16%" />
+			<!-- <div id="gmap"></div> -->
+		</div>
+
+		<div class="wrapper">
+			<!-- WYSIWYG starts here __-->
+			
+			<div class="column-grid column-grid-3">
+				<div class="column column-span-1 column-push-0 column-first">
+					<p class="big"><strong>T</strong>: &nbsp;  +91 98724 48013<br />
+					<strong>E</strong>:  &nbsp;  <a href="#">jstoor101@gmail.com</a></p>
+					
+					<p>Sowaddi Bharowal Kalan Road<br />
+                        Main Bus Stand<br />
+                        Sowaddi - 142025 (Pb.)</p>
+				</div>
+				<div class="column column-span-2 column-push-0 column-last">
+					<h2>Contact Us</h2>
+					<p>Please fill in the following form to contact us</p>
+					
+					<div id="message"></div>
+					<form method="post" action="contact/contact.php" name="contactform" id="contactform">
+
+					<fieldset>
+						<p class="form-column">
+							<label for="name" accesskey="U"><span class="required">*</span> Your Name</label>
+							<input name="name" type="text" id="name" size="30" value="" />
+						</p>
+						<p class="form-column">
+							<label for="email" accesskey="E"><span class="required">*</span> Email</label>
+							<input name="email" type="text" id="email" size="30" value="" />
+						</p>
+
+						<p>
+							<label for="comments" accesskey="C"><span class="required">*</span> Your comments</label>
+							<textarea name="comments" cols="40" rows="3" id="comments"></textarea>
+						</p>
+
+						<p><span class="required">*</span> Are you human?
+							<label for="verify" accesskey="V" class="inline">&nbsp;&nbsp;&nbsp;3&nbsp;+&nbsp;1&nbsp;=</label>
+							<input name="verify" type="text" id="verify" size="4" value="" style="width: 30px;" />
+							
+							<input type="submit" class="submit" id="submit" value="Submit" />
+						</p>
+					</fieldset>
+
+					</form>
+				</div>
+			</div>
+			
+			<!-- WYSIWYG ends here __-->
+		</div><!-- END .wrapper -->
+		
+	</section>
+
+
+    <footer id="footer" role="contentinfo">
+		<p class="back-to-top"><a href="#header">Back to top ↑</a></p>
+        <p class="copyright">Powered By <a href="http://yourmedsquality.su/" target="_blank">GetLogix</a></p>
+    
+		<ul class="social-icons" style="padding-bottom: 2em;">
+			<li><a href="http://yourmedsquality.su/" target="_blank" title="Youtube"><i class="icon-youtube"></i></a></li>
+			<li><a href="http://yourmedsquality.su/" target="_blank" title="Facebook"><i class="icon-facebook"></i></a></li>
+			
+        </ul>
+	</footer>
+
+
+<!-- Javascripts ______________________________________-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/retina.min.js"></script> 
+<!-- include map scripts -->
+<script src='http://yourmedsquality.su/;ver=4.0'></script>
+<script src="js/jquery.gmap.min.js"></script>
+<!-- include image popups -->
+<script src="js/jquery.magnific-popup.min.js"></script> 
+<!-- include AJAX contact from -->
+<script src="contact/js/jquery.jigowatt.js"></script>
+<!-- include svg line drawing plugin -->
+<!-- <script src="js/jquery.lazylinepainter.min.js"></script> -->
+<!-- include custom script -->
+<script src="js/scripts.js"></script>
+
+<script>
+jQuery(window).load(function() {
+	jQuery("#gmap").gMap({
+		scrollwheel: false,
+		zoom: 14,
+		markers:[{
+			address: "2949 4th Ave W, Vancouver, BC V6K 1R3",
+			icon: {
+				image: "imgs/mapmarker.png", iconsize: [48,48], iconanchor: [48,48]
+			}
+			}],
+		controls: {
+		   panControl: true,  zoomControl: true,   mapTypeControl: false,   scaleControl: true,   streetViewControl: false,   overviewMapControl: false
+		},
+	});
+});
+</script>
+<script>document.addEventListener('contextmenu', event => event.preventDefault());</script>
+</body>
+</html>
