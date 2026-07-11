@@ -45,7 +45,7 @@
 				<div id="menu-burger"><i class="icon-menu"></i></div>
 				<div id="searchicon">
 					<i class="icon-search"></i>
-					<form action="/" method="get" id="searchbar">
+					<form action="./" method="get" id="searchbar">
 						<fieldset>
 							<input type="text" name="s" id="searchbar-input" value="" />
 							<button type="submit" id="searchbar-submit"></button>
@@ -54,7 +54,7 @@
 				</div>
 				<div id="menu">
 					<ul>
-						<li class="current-menu-item-x menu-item-has-children-x"><a href="/in">Home</a></li>
+						<li class="current-menu-item-x menu-item-has-children-x"><a href="index.html">Home</a></li>
                         <!-- <ul class="sub-menu">
 								<li><a href="index.html">Fullscreen Image</a></li>
 								<li><a href="gallery-fullscreen.html">Fullscreen Gallery</a></li>
