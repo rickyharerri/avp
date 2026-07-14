@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVP | Wedding Photography &amp; Cinematography</title>
+<style>
+  :root{
+    --dark-green:#1f3327;
+    --cream:#f7f3ee;
+    --cream-dark:#efe8de;
+    --text-dark:#2b2b2b;
+    --text-muted:#6f6f6f;
+    --gold:#b08d57;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Georgia', 'Times New Roman', serif;color:var(--text-dark);background:#fff;}
+  h1,h2,h3{font-family:'Georgia', 'Times New Roman', serif;font-weight:400;margin:0;}
+  p{font-family:Arial, Helvetica, sans-serif;line-height:1.7;color:var(--text-muted);}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;margin:0;padding:0;}
+  .btn{
+    display:inline-block;
+    background:var(--dark-green);
+    color:#fff;
+    padding:14px 30px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    border:none;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .btn:hover{background:#16241b;}
+  .eyebrow{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+    display:block;
+  }
+  .section{padding:90px 8%;}
+  .container{max-width:1300px;margin:0 auto;}
+
+  /* HEADER */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 6%;
+    border-bottom:1px solid #eee;
+  }
+  .logo{
+    width:56px;height:56px;border-radius:50%;
+    border:1.5px solid var(--dark-green);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;letter-spacing:1px;color:var(--dark-green);
+    text-align:center;line-height:1.1;
+  }
+  nav ul{display:flex;gap:34px;font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#333;}
+  nav ul li{cursor:pointer;display:flex;align-items:center;gap:4px;}
+  .socials{display:flex;gap:14px;}
+  .socials span{
+    width:30px;height:30px;border-radius:50%;
+    border:1px solid #ccc;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;color:#555;
+  }
+
+  /* HERO */
+  .hero{display:flex;align-items:stretch;}
+  .hero-text{
+    flex:1;
+    padding:100px 7%;
+    display:flex;flex-direction:column;justify-content:center;
+    background:var(--cream);
+  }
+  .hero-text h1{
+    font-size:52px;
+    line-height:1.15;
+    margin-bottom:22px;
+    color:#1c1c1c;
+  }
+  .hero-text p{max-width:400px;margin-bottom:32px;}
+  .hero-img{flex:1;min-height:520px;background:#ccc;
+    background-image:url('https://picsum.photos/seed/wedding-hero/900/1100');
+    background-size:cover;background-position:center;}
+
+  /* SERVICES */
+  .services-title{text-align:center;margin-bottom:60px;}
+  .services-title span.eyebrow{text-align:center;}
+  .services-title::after{
+    content:'';display:block;width:60px;height:2px;background:var(--gold);
+    margin:18px auto 0;
+  }
+  .services{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;
+  }
+  .service-icon{
+    width:56px;height:56px;margin:0 auto 22px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid #ddd;
+    font-size:22px;color:var(--dark-green);
+  }
+  .services h3{font-size:16px;margin-bottom:10px;font-family:Arial, Helvetica, sans-serif;letter-spacing:.5px;}
+  .services p{font-size:13.5px;max-width:220px;margin:0 auto;}
+
+  /* PORTFOLIO */
+  .portfolio-header{text-align:center;margin-bottom:50px;}
+  .portfolio-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+  }
+  .portfolio-item{
+    position:relative;aspect-ratio:3/4;overflow:hidden;background:#ccc;
+  }
+  .portfolio-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+  .portfolio-item:hover img{transform:scale(1.05);}
+  .portfolio-caption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:24px 20px;
+    background:linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,0));
+    color:#fff;font-family:Arial, Helvetica, sans-serif;
+    font-size:15px;letter-spacing:.5px;
+  }
+  .view-more{text-align:center;margin-top:50px;}
+
+  /* ABOUT */
+  .about{
+    display:flex;align-items:center;gap:70px;background:var(--cream);
+  }
+  .about-text{flex:1;}
+  .about-text h2{font-size:34px;line-height:1.3;margin-bottom:22px;max-width:480px;}
+  .about-text p{max-width:460px;margin-bottom:30px;}
+  .about-img{flex:1;height:420px;background:#ccc;
+    background-image:url('https://picsum.photos/seed/wedding-about/800/900');
+    background-size:cover;background-position:center;}
+
+  /* TESTIMONIAL */
+  .testimonial{
+    position:relative;min-height:420px;
+    background:linear-gradient(rgba(20,25,20,.55), rgba(20,25,20,.55)), url('https://picsum.photos/seed/wedding-testimonial/1600/700');
+    background-size:cover;background-position:center;
+    display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;
+  }
+  .testimonial-inner{max-width:640px;padding:0 20px;}
+  .testimonial p{color:#eee;font-style:italic;font-size:18px;line-height:1.8;}
+  .testimonial-author{margin-top:20px;font-family:Arial, Helvetica, sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#ddd;}
+  .dots{display:flex;gap:8px;justify-content:center;margin-top:28px;}
+  .dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);}
+  .dots span.active{background:#fff;}
+
+  /* CONTACT */
+  .contact{display:flex;gap:60px;align-items:stretch;}
+  .contact-img{flex:1;min-height:460px;background:#ccc;
+    background-image:url('https://picsum.photos/seed/wedding-contact/800/1000');
+    background-size:cover;background-position:center;}
+  .contact-form{flex:1;padding:40px 0;}
+  .contact-form h2{font-size:28px;letter-spacing:1px;margin-bottom:18px;text-transform:uppercase;font-size:22px;}
+  .contact-form p{max-width:420px;margin-bottom:34px;}
+  .form-row{display:flex;gap:16px;margin-bottom:16px;}
+  .form-row input, .contact-form textarea{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #ddd;
+    background:#fafafa;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+  }
+  .contact-form textarea{height:120px;margin-bottom:22px;resize:vertical;}
+
+  /* FOOTER */
+  footer{
+    background:var(--dark-green);
+    color:#d9ddda;
+    padding:70px 8% 30px;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  .footer-top{
+    display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;
+    padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .footer-brand{max-width:340px;}
+  .footer-brand .logo{border-color:#d9ddda;color:#d9ddda;margin-bottom:18px;}
+  .footer-brand p{color:#b7bdb9;font-size:13.5px;}
+  .footer-links{display:flex;gap:60px;flex-wrap:wrap;}
+  .footer-links h4{color:#fff;font-size:14px;letter-spacing:1px;margin-bottom:16px;text-transform:uppercase;font-weight:400;}
+  .footer-links ul li{margin-bottom:10px;font-size:13.5px;color:#b7bdb9;}
+  .footer-socials{display:flex;gap:12px;}
+  .footer-socials span{
+    width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.3);
+    display:flex;align-items:center;justify-content:center;font-size:12px;
+  }
+  .footer-bottom{
+    display:flex;justify-content:space-between;padding-top:24px;font-size:12.5px;color:#9aa39d;flex-wrap:wrap;gap:10px;
+  }
+
+  @media (max-width: 900px){
+    .hero{flex-direction:column;}
+    .services{grid-template-columns:repeat(2,1fr);}
+    .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+    .about{flex-direction:column;}
+    .contact{flex-direction:column;}
+    nav ul{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">AVP</div>
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Portfolio ▾</li>
+      <li>Blog</li>
+      <li>Contact</li>
+      <li>More ▾</li>
+    </ul>
+  </nav>
+  <div class="socials">
+    <span>f</span><span>ig</span><span>yt</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Timeless Stories.<br>Beautifully Told.</h1>
+    <p>We capture authentic moments and unforgettable emotions with a timeless touch, cherishing memories to cherish for generations.</p>
+    <a href="#portfolio" class="btn">View Portfolio</a>
+  </div>
+  <div class="hero-img"></div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="services-title">
+      <span class="eyebrow">What We Create</span>
+    </div>
+    <div class="services">
+      <div>
+        <div class="service-icon">&#128247;</div>
+        <h3>Photography</h3>
+        <p>Natural, elegant, and emotion-filled imagery.</p>
+      </div>
+      <div>
+        <div class="service-icon">&#127909;</div>
+        <h3>Cinematography</h3>
+        <p>Cinematic films that bring your story to life.</p>
+      </div>
+      <div>
+        <div class="service-icon">&#9201;</div>
+        <h3>One Day Stories</h3>
+        <p>Short films capturing the essence of your day.</p>
+      </div>
+      <div>
+        <div class="service-icon">&#9992;</div>
+        <h3>Destination Stories</h3>
+        <p>We love to travel and capture love in beautiful places.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="portfolio" style="padding-top:0;">
+  <div class="container">
+    <div class="portfolio-header">
+      <span class="eyebrow">Portfolio Highlights</span>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="https://picsum.photos/seed/garry-raman/500/650" alt="Garry &amp; Raman">
+        <div class="portfolio-caption">Garry &amp; Raman</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://picsum.photos/seed/simran-meet/500/650" alt="Simran &amp; Meet">
+        <div class="portfolio-caption">Simran &amp; Meet</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://picsum.photos/seed/one-day-shoot/500/650" alt="One Day Shoot With Ordinary People">
+        <div class="portfolio-caption">One Day Shoot With Ordinary People</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://picsum.photos/seed/manpreet-anmol/500/650" alt="Manpreet &amp; Anmol">
+        <div class="portfolio-caption">Manpreet &amp; Anmol</div>
+      </div>
+    </div>
+    <div class="view-more">
+      <a href="#" class="btn" style="background:transparent;color:var(--dark-green);border:1px solid var(--dark-green);">View More</a>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-text" style="padding-left:7%;">
+    <span class="eyebrow">Hi, We Are Anmol Studio</span>
+    <h2>We capture your most meaningful moments with heart and artistry.</h2>
+    <p>Based in California, we specialize in wedding and destination celebrations of all sizes. Our goal is to create timeless visuals that reflect your story and emotions.</p>
+    <a href="#" class="btn">About Us</a>
+  </div>
+  <div class="about-img"></div>
+</section>
+
+<section class="testimonial">
+  <div class="testimonial-inner">
+    <p>"If you are considering them to cover your event, don't think twice. Thank you to everyone at Anmol who's productions for bringing our vision to our wedding to life and gifting us beautiful memories to cherish."</p>
+    <div class="testimonial-author">— Amrit</div>
+    <div class="dots">
+      <span class="active"></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<section class="section contact">
+  <div class="contact-img"></div>
+  <div class="contact-form">
+    <span class="eyebrow">Let's Tell Your Story</span>
+    <p>Ready to capture the most meaningful moments? Get in touch with our team of professional storytellers and let's create timeless memories together.</p>
+    <form onsubmit="return false;">
+      <div class="form-row">
+        <input type="text" placeholder="Your Name">
+        <input type="text" placeholder="Phone">
+      </div>
+      <input type="email" placeholder="Email" style="margin-bottom:16px;">
+      <textarea placeholder="Message"></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">AVP</div>
+      <p>Anmol Videa Productions is a wedding and destination photography &amp; cinematography studio capturing timeless memories with heart and artistry, worldwide.</p>
+    </div>
+    <div class="footer-links">
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li>Home</li><li>About</li><li>Portfolio</li><li>Blog</li><li>Contact</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <div class="footer-socials">
+          <span>f</span><span>ig</span><span>yt</span><span>p</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Anmol Videa Productions. All rights reserved.</span>
+    <span>Privacy Policy &nbsp;|&nbsp; Terms of Service</span>
+  </div>
+</footer>
+
+</body>
+</html>
