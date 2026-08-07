@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  Camera,
-  Film,
-  Clock,
-  MapPin,
   Instagram,
   Facebook,
   Youtube,
