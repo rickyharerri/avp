@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Camera,
   Film,
@@ -23,26 +23,31 @@ import whatWeAreImage from "@/imports/what-we-are.jpg";
 import testimonialBg from "@/imports/testimonial-bg.jpg";
 import contactUsBg from "@/imports/contact-us.jpg";
 
+import feature1Img from "@/imports/feature-1.jpg";
+import feature2Img from "@/imports/feature-2.jpg";
+import feature3Img from "@/imports/feature-3.jpg";
+import feature4Img from "@/imports/feature-4.jpg";
+
 const PORTFOLIO = [
   {
     name: "Garry & Roman",
     tag: "WEDDING",
-    img: "https://images.unsplash.com/photo-1630526720753-aa4e71acf67d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
+    img: feature1Img,
   },
   {
     name: "Simran & Meet",
     tag: "EVENT",
-    img: "https://images.unsplash.com/photo-1633104502699-b2ecf0fee294?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
+    img: feature2Img,
   },
   {
     name: "One Day Shoot With Ordinary People",
     tag: "",
-    img: "https://images.unsplash.com/photo-1665960213530-3fb10da1f25e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
+    img: feature3Img,
   },
   {
     name: "Manpreet & Anmol",
     tag: "FILM",
-    img: "https://images.unsplash.com/photo-1722953544956-192125062800?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
+    img: feature4Img,
   },
 ];
 
@@ -74,12 +79,21 @@ const FOOTER_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact"];
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     location: "",
     message: "",
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleInput = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -98,7 +112,7 @@ export default function App() {
             <ImageWithFallback
               src={logoImg}
               alt="AVP – Anmol Video Production"
-              className="h-40 w-40 mt-30 object-contain"
+              className={`${isScrolled ? "h-15 w-15" : "h-30 w-30 mt-20"} object-contain transition-all duration-300`}
             />
           </a>
 
@@ -131,7 +145,7 @@ export default function App() {
             {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
               <Icon
                 key={i}
-                size={15}
+                size={20}
                 strokeWidth={1.5}
                 className="cursor-pointer text-charcoal hover:text-green-dark transition-colors"
               />
@@ -181,9 +195,10 @@ export default function App() {
         {/* Content */}
         <div className="relative max-w-7xl mx-auto px-6 flex items-center min-h-[calc(100vh-64px)]">
           <div className="max-w-[520px] py-20">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 mb-7">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-900 mb-7">
               Wedding Photography &amp; Cinematography
             </p>
+            <div className="w-[155px] h-1 bg-green-dark mb-10" />
             <h1
               className="text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.07] font-medium text-charcoal mb-7"
               style={{ fontFamily: "'Playfair Display', serif" }}
@@ -210,9 +225,10 @@ export default function App() {
       {/* ── WHAT WE CREATE (white bg, no top border) ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 text-center mb-14">
+          <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 text-center mb-3">
             What We Create
           </p>
+          <div className="w-12 h-1 bg-green-dark mx-auto mb-10" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
             {SERVICES.map(({ icon: Icon, title, desc }) => (
               <div
@@ -225,13 +241,13 @@ export default function App() {
                     alt={title}
                   />
                 </div>
-                <h3
+                <h2
                   className="text-[14px] font-medium text-charcoal mb-2"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   {title}
-                </h3>
-                <p className="text-stone-400 text-[12px] leading-relaxed">
+                </h2>
+                <p className="text-stone-900 text-[12px] leading-relaxed">
                   {desc}
                 </p>
               </div>
@@ -241,12 +257,13 @@ export default function App() {
       </section>
 
       {/* ── PORTFOLIO HIGHLIGHTS ────────────────────── */}
-      <section className="py-20 bg-[#f0ece5]">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 text-center mb-10">
+          <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 text-center mb-10">
             Portfolio Highlights
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mb-10">
+          <div className="w-12 h-1 bg-green-dark mx-auto mb-10" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mb-10 ">
             {PORTFOLIO.map(({ name, tag, img }) => (
               <div
                 key={name}
@@ -273,9 +290,9 @@ export default function App() {
             ))}
           </div>
           <div className="text-center">
-            <a
+             <a
               href="#"
-              className="inline-block border border-charcoal text-charcoal text-[11px] tracking-[0.2em] uppercase px-10 py-3.5 hover:bg-charcoal hover:text-white transition-all"
+              className="inline-block bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-9 py-4 hover:opacity-90 transition-opacity"
             >
               View More
             </a>
@@ -284,15 +301,13 @@ export default function App() {
       </section>
 
       {/* ── ABOUT ───────────────────────────────────── */}
-      <section className="py-10 bg-cream">
+      <section className="py-10 bg-l-cream">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-[15px] uppercase tracking-[0.28em] mb-10">
               Hi, We're Anmol Studio
             </p>
-
-            ----------
-
+<div className="w-52 h-1 bg-green-dark mx-to mb-10" />
             <h2
               className="text-4xl md:text-5xl font-medium text-charcoal line-height-75px mb-16"
               style={{ fontFamily: "'Playfair Display', serif" }}
@@ -310,7 +325,7 @@ export default function App() {
             </p>
             <a
               href="#"
-              className="inline-block border border-charcoal text-charcoal text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:bg-charcoal hover:text-white transition-all"
+              className="inline-block bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-9 py-4 hover:opacity-90 transition-opacity"
             >
               About Us
             </a>
@@ -355,7 +370,7 @@ export default function App() {
       </section>
 
       {/* ── LET'S TELL YOUR STORY ───────────────────── */}
-      <section className="bg-d-cream m-10">
+      <section className="bg-l-cream m-7 p-7">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch">
           <div className="relative min-h-[520px]">
             <img
@@ -364,10 +379,11 @@ export default function App() {
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
-          <div className="py-20 px-6 md:pl-16 bg-cream">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 mb-4">
+          <div className="py-20 px-6 md:pl-16 bg-l-cream">
+            <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 mb-4">
               Let's Tell Your Story
             </p>
+            <div className="w-52 h-1 bg-green-dark mx-to mb-10" />
             <p className="text-stone-500 text-[14px] leading-relaxed mb-8 max-w-sm">
               Ready to create your most meaningful memories? Get in touch to
               plan your shoot and celebrate your love story beautifully.
