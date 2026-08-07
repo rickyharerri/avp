@@ -13,11 +13,15 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import heroImage from "@/imports/ChatGPT_Image_Jul_10__2026__12_24_46_PM.PNG";
+import heroImage from "@/imports/hero-image.jpg";
 import logoImg from "@/imports/logo-no-bg.png";
-
-const TESTIMONIAL_BG =
-  "https://images.unsplash.com/photo-1690749180711-367cef00772f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1400&q=80";
+import cameraIcon from "@/imports/icons/camera.svg";
+import clapperboardIcon from "@/imports/icons/clapperboard.svg";
+import videoIcon from "@/imports/icons/video.svg";
+import webcamIcon from "@/imports/icons/webcam.svg";
+import whatWeAreImage from "@/imports/what-we-are.jpg";
+import testimonialBg from "@/imports/testimonial-bg.jpg";
+import contactUsBg from "@/imports/contact-us.jpg";
 
 const PORTFOLIO = [
   {
@@ -44,22 +48,22 @@ const PORTFOLIO = [
 
 const SERVICES = [
   {
-    icon: Camera,
+    icon: cameraIcon,
     title: "Photography",
     desc: "Natural, elegant, and emotion-filled imagery.",
   },
   {
-    icon: Film,
+    icon: clapperboardIcon,
     title: "Cinematography",
     desc: "Cinematic films that bring your story to life.",
   },
   {
-    icon: Clock,
+    icon: videoIcon,
     title: "One Day Stories",
     desc: "Short films capturing the essence of your day.",
   },
   {
-    icon: MapPin,
+    icon: webcamIcon,
     title: "Destination Stories",
     desc: "We travel to capture love in beautiful places.",
   },
@@ -87,14 +91,14 @@ export default function App() {
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       {/* ── NAVBAR ──────────────────────────────────── */}
-      <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-200/60">
+      <header className="fixed top-0 inset-x-0 z-50 bg-cream">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="shrink-0">
             <ImageWithFallback
               src={logoImg}
               alt="AVP – Anmol Video Production"
-              className="h-11 w-11 object-contain"
+              className="h-40 w-40 mt-30 object-contain"
             />
           </a>
 
@@ -215,11 +219,10 @@ export default function App() {
                 key={title}
                 className="text-center flex flex-col items-center"
               >
-                <div className="mb-5 w-14 h-14 rounded-full border border-stone-200 flex items-center justify-center">
-                  <Icon
-                    size={22}
-                    strokeWidth={1.25}
-                    className="text-stone-400"
+                <div className="mb-5 w-18 h-18 flex items-center justify-center">
+                  <img
+                    src={Icon}
+                    alt={title}
                   />
                 </div>
                 <h3
@@ -281,20 +284,26 @@ export default function App() {
       </section>
 
       {/* ── ABOUT ───────────────────────────────────── */}
-      <section className="py-24 bg-cream">
+      <section className="py-10 bg-cream">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 mb-6">
+            <p className="text-[15px] uppercase tracking-[0.28em] mb-10">
               Hi, We're Anmol Studio
             </p>
+
+            ----------
+
             <h2
-              className="text-4xl md:text-5xl font-medium text-charcoal leading-[1.15] mb-7"
+              className="text-4xl md:text-5xl font-medium text-charcoal line-height-75px mb-16"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               We capture your most meaningful moments with heart and artistry.
             </h2>
-            <p className="text-stone-500 text-[14px] leading-relaxed mb-9 max-w-md">
+            <p className="text-stone-500 text-[14px] leading-relaxed mb-16 max-w-md">
               Based in California, we specialize in motion weddings and
+              destination elopements worldwide. Our goal and priority is to
+              create timeless visuals that reflect your unique story and
+              emotions.Based in California, we specialize in motion weddings and
               destination elopements worldwide. Our goal and priority is to
               create timeless visuals that reflect your unique story and
               emotions.
@@ -308,9 +317,9 @@ export default function App() {
           </div>
           <div>
             <img
-              src="https://images.unsplash.com/photo-1741201864710-8c031ebd13bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=700&q=80"
+              src={whatWeAreImage}
               alt="Anmol Studio"
-              className="w-full h-[480px] object-cover"
+              className="w-full h-[720px] object-cover"
             />
           </div>
         </div>
@@ -320,7 +329,7 @@ export default function App() {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `url(${TESTIMONIAL_BG})`,
+          backgroundImage: `url(${testimonialBg})`,
           backgroundAttachment: "fixed",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -346,11 +355,11 @@ export default function App() {
       </section>
 
       {/* ── LET'S TELL YOUR STORY ───────────────────── */}
-      <section className="bg-white">
+      <section className="bg-d-cream m-10">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch">
           <div className="relative min-h-[520px]">
             <img
-              src="https://images.unsplash.com/photo-1519741196428-6a2175fa2557?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=700&q=80"
+              src={contactUsBg}
               alt="Wedding couple"
               className="absolute inset-0 w-full h-full object-cover"
             />

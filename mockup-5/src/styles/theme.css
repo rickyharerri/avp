@@ -15,6 +15,7 @@
   --muted: #ede8e1;
   --muted-foreground: #7a7265;
   --cream: #f7f4ef;
+  --d-cream: #ded7cb;
   --charcoal: #1c1a18;
   --green-dark: #2d4a3e;
   --green-footer: #1a2e24;
@@ -186,4 +187,12 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+}
+
+.line-height-75px {
+  line-height: 75px;
+}
+
+.bg-d-cream {
+  background-color: var(--color-d-cream);
 }
