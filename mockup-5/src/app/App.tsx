@@ -511,19 +511,17 @@ export default function App() {
 
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            <p className="text-white/25 text-[11px]">
-              © 2025 Anmol Video Productions. All Rights Reserved.
+            <p className="text-white/60 text-[11px]">
+              © 2026 Anmol Video Productions. All Rights Reserved.
             </p>
-            <nav className="hidden md:flex items-center gap-5">
-              {FOOTER_LINKS.map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-[11px] text-white/30 hover:text-white/60 transition-colors"
+            <nav className="hidden md:flex items-center gap-1 text-[11px] text-white/30 ">
+              Website developed by <a
+                  key="credit"
+                  href="https://www.getlogix.com"
+                  className="text-[11px] text-white/60 hover:text-white/90 transition-colors"
                 >
-                  {item}
+                  GetLogix Inc.
                 </a>
-              ))}
             </nav>
           </div>
         </div>
