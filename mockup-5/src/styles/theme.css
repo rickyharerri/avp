@@ -2,21 +2,22 @@
 
 :root {
   --font-size: 16px;
-  --background: #f5f0eb;
-  --foreground: #1a1a1a;
-  --card: #f5f0eb;
-  --card-foreground: #1a1a1a;
-  --popover: #f5f0eb;
-  --popover-foreground: #1a1a1a;
-  --primary: #2c4a3e;
+  --background: #f7f4ef;
+  --foreground: #1c1a18;
+  --card: #f7f4ef;
+  --card-foreground: #1c1a18;
+  --popover: #ffffff;
+  --popover-foreground: #1c1a18;
+  --primary: #2d4a3e;
   --primary-foreground: #ffffff;
-  --secondary: #ede8e2;
-  --secondary-foreground: #1a1a1a;
-  --muted: #ede8e2;
-  --muted-foreground: #7a7060;
-  --cream: #f5f0eb;
-  --charcoal: #1a1a1a;
-  --green-dark: #2c4a3e;
+  --secondary: #ede8e1;
+  --secondary-foreground: #1c1a18;
+  --muted: #ede8e1;
+  --muted-foreground: #7a7265;
+  --cream: #f7f4ef;
+  --charcoal: #1c1a18;
+  --green-dark: #2d4a3e;
+  --green-footer: #1a2e24;
   --accent: #e9ebef;
   --accent-foreground: #030213;
   --destructive: #d4183d;
@@ -87,6 +88,7 @@
   --color-cream: var(--cream);
   --color-charcoal: var(--charcoal);
   --color-green-dark: var(--green-dark);
+  --color-green-footer: var(--green-footer);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);

@@ -14,6 +14,10 @@ import {
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import heroImage from "@/imports/ChatGPT_Image_Jul_10__2026__12_24_46_PM.PNG";
+import logoImg from "@/imports/logo-no-bg.png";
+
+const TESTIMONIAL_BG =
+  "https://images.unsplash.com/photo-1690749180711-367cef00772f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1400&q=80";
 
 const PORTFOLIO = [
   {
@@ -62,6 +66,7 @@ const SERVICES = [
 ];
 
 const NAV_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact", "More"];
+const FOOTER_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact"];
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -81,20 +86,17 @@ export default function App() {
       className="min-h-screen bg-cream text-charcoal"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      {/* ── NAVBAR ────────────────────────────────────── */}
-      <header className="fixed top-0 inset-x-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-stone-200/80">
+      {/* ── NAVBAR ──────────────────────────────────── */}
+      <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-200/60">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="w-9 h-9 rounded-full border border-green-dark flex items-center justify-center">
-              <span
-                className="text-[10px] font-semibold tracking-[0.2em] text-green-dark"
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                AVP
-              </span>
-            </div>
-          </div>
+          <a href="#" className="shrink-0">
+            <ImageWithFallback
+              src={logoImg}
+              alt="AVP – Anmol Video Production"
+              className="h-11 w-11 object-contain"
+            />
+          </a>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-7">
@@ -103,16 +105,16 @@ export default function App() {
                 <a
                   key={item}
                   href="#"
-                  className="flex items-center gap-1 text-sm text-charcoal hover:text-green-dark transition-colors"
+                  className="flex items-center gap-1 text-[13px] text-charcoal hover:text-green-dark transition-colors"
                 >
                   {item}
-                  <ChevronDown size={13} strokeWidth={1.5} />
+                  <ChevronDown size={12} strokeWidth={2} />
                 </a>
               ) : (
                 <a
                   key={item}
                   href="#"
-                  className="text-sm text-charcoal hover:text-green-dark transition-colors"
+                  className="text-[13px] text-charcoal hover:text-green-dark transition-colors"
                 >
                   {item}
                 </a>
@@ -121,13 +123,13 @@ export default function App() {
           </nav>
 
           {/* Social icons */}
-          <div className="hidden md:flex items-center gap-3.5 text-charcoal">
+          <div className="hidden md:flex items-center gap-3.5">
             {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
               <Icon
                 key={i}
                 size={15}
                 strokeWidth={1.5}
-                className="cursor-pointer hover:text-green-dark transition-colors"
+                className="cursor-pointer text-charcoal hover:text-green-dark transition-colors"
               />
             ))}
           </div>
@@ -141,9 +143,8 @@ export default function App() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden bg-cream border-t border-stone-200 px-6 py-4 flex flex-col gap-3">
+          <div className="md:hidden bg-white border-t border-stone-100 px-6 py-4 flex flex-col gap-3">
             {NAV_LINKS.map((item) => (
               <a
                 key={item}
@@ -158,15 +159,29 @@ export default function App() {
         )}
       </header>
 
-      {/* ── HERO ──────────────────────────────────────── */}
-      <section className="pt-16 bg-cream">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center min-h-[calc(100vh-64px)]">
-          <div className="py-16">
+      {/* ── HERO (full-width bg + left fade) ────────── */}
+      <section className="relative pt-16 min-h-screen overflow-hidden">
+        {/* Full-width background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+        {/* Gradient overlay: solid cream on left → transparent on right */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, #f7f4ef 38%, #f7f4efcc 52%, #f7f4ef55 65%, transparent 78%)",
+          }}
+        />
+        {/* Content */}
+        <div className="relative max-w-7xl mx-auto px-6 flex items-center min-h-[calc(100vh-64px)]">
+          <div className="max-w-[520px] py-20">
             <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 mb-7">
               Wedding Photography &amp; Cinematography
             </p>
             <h1
-              className="text-5xl md:text-6xl lg:text-7xl leading-[1.08] font-medium text-charcoal mb-7"
+              className="text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.07] font-medium text-charcoal mb-7"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               Timeless Stories.
@@ -180,49 +195,50 @@ export default function App() {
             </p>
             <a
               href="#"
-              className="inline-block bg-green-dark text-white text-[13px] tracking-widest uppercase px-8 py-3.5 hover:bg-opacity-90 transition-all"
+              className="inline-block bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-9 py-4 hover:opacity-90 transition-opacity"
             >
               View Portfolio
             </a>
           </div>
-
-          <div className="relative self-stretch flex items-end md:items-center">
-            <ImageWithFallback
-              src={heroImage}
-              alt="Indian wedding couple in traditional attire"
-              className="w-full h-[540px] md:h-[680px] object-cover object-top"
-            />
-          </div>
         </div>
       </section>
 
-      {/* ── WHAT WE CREATE ────────────────────────────── */}
-      <section className="py-20 bg-cream border-t border-stone-200">
+      {/* ── WHAT WE CREATE (white bg, no top border) ── */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 text-center mb-14">
             What We Create
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
             {SERVICES.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="text-center flex flex-col items-center">
-                <div className="mb-5 w-14 h-14 rounded-full border border-stone-300 flex items-center justify-center">
-                  <Icon size={22} strokeWidth={1.25} className="text-stone-400" />
+              <div
+                key={title}
+                className="text-center flex flex-col items-center"
+              >
+                <div className="mb-5 w-14 h-14 rounded-full border border-stone-200 flex items-center justify-center">
+                  <Icon
+                    size={22}
+                    strokeWidth={1.25}
+                    className="text-stone-400"
+                  />
                 </div>
                 <h3
-                  className="text-[15px] font-medium text-charcoal mb-2"
+                  className="text-[14px] font-medium text-charcoal mb-2"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   {title}
                 </h3>
-                <p className="text-stone-400 text-[13px] leading-relaxed">{desc}</p>
+                <p className="text-stone-400 text-[12px] leading-relaxed">
+                  {desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── PORTFOLIO HIGHLIGHTS ──────────────────────── */}
-      <section className="py-20 bg-stone-100">
+      {/* ── PORTFOLIO HIGHLIGHTS ────────────────────── */}
+      <section className="py-20 bg-[#f0ece5]">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 text-center mb-10">
             Portfolio Highlights
@@ -239,14 +255,14 @@ export default function App() {
                   alt={name}
                   className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-4">
                   {tag && (
-                    <p className="text-white/60 text-[10px] uppercase tracking-[0.2em] mb-1">
+                    <p className="text-white/65 text-[11px] uppercase tracking-[0.2em] mb-1.5">
                       {tag}
                     </p>
                   )}
-                  <p className="text-white text-[13px] font-medium leading-snug">
+                  <p className="text-white text-[15px] font-medium leading-snug">
                     {name}
                   </p>
                 </div>
@@ -256,7 +272,7 @@ export default function App() {
           <div className="text-center">
             <a
               href="#"
-              className="inline-block border border-charcoal text-charcoal text-[13px] tracking-widest uppercase px-10 py-3.5 hover:bg-charcoal hover:text-white transition-all"
+              className="inline-block border border-charcoal text-charcoal text-[11px] tracking-[0.2em] uppercase px-10 py-3.5 hover:bg-charcoal hover:text-white transition-all"
             >
               View More
             </a>
@@ -264,7 +280,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── ABOUT ─────────────────────────────────────── */}
+      {/* ── ABOUT ───────────────────────────────────── */}
       <section className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -285,7 +301,7 @@ export default function App() {
             </p>
             <a
               href="#"
-              className="inline-block border border-charcoal text-charcoal text-[13px] tracking-widest uppercase px-8 py-3.5 hover:bg-charcoal hover:text-white transition-all"
+              className="inline-block border border-charcoal text-charcoal text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:bg-charcoal hover:text-white transition-all"
             >
               About Us
             </a>
@@ -300,11 +316,21 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── TESTIMONIAL ───────────────────────────────── */}
-      <section className="py-24 bg-charcoal">
-        <div className="max-w-2xl mx-auto px-6 text-center">
+      {/* ── TESTIMONIAL (parallax fixed bg) ─────────── */}
+      <section
+        className="relative py-32"
+        style={{
+          backgroundImage: `url(${TESTIMONIAL_BG})`,
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Dark overlay with opacity */}
+        <div className="absolute inset-0 bg-charcoal/80" />
+        <div className="relative max-w-2xl mx-auto px-6 text-center">
           <p
-            className="text-xl md:text-2xl leading-relaxed italic text-white/85 mb-8"
+            className="text-xl md:text-2xl leading-relaxed italic text-white/90 mb-8"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             "If you are considering them to cover your events don't think
@@ -313,23 +339,23 @@ export default function App() {
             memories to cherish."
           </p>
           <div className="w-8 h-px bg-white/30 mx-auto mb-6" />
-          <p className="text-white/40 text-[11px] uppercase tracking-[0.3em]">
+          <p className="text-white/45 text-[11px] uppercase tracking-[0.3em]">
             — Amrit
           </p>
         </div>
       </section>
 
-      {/* ── LET'S TELL YOUR STORY ─────────────────────── */}
-      <section className="bg-cream">
+      {/* ── LET'S TELL YOUR STORY ───────────────────── */}
+      <section className="bg-white">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch">
-          <div className="relative min-h-[500px]">
+          <div className="relative min-h-[520px]">
             <img
               src="https://images.unsplash.com/photo-1519741196428-6a2175fa2557?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=700&q=80"
               alt="Wedding couple"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
-          <div className="py-20 px-6 md:pl-16">
+          <div className="py-20 px-6 md:pl-16 bg-cream">
             <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 mb-4">
               Let's Tell Your Story
             </p>
@@ -377,7 +403,7 @@ export default function App() {
               />
               <button
                 type="submit"
-                className="bg-green-dark text-white text-[13px] tracking-widest uppercase px-8 py-3.5 hover:bg-opacity-90 transition-all"
+                className="bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:opacity-90 transition-opacity"
               >
                 Send Message
               </button>
@@ -386,60 +412,98 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── FOOTER ────────────────────────────────────── */}
-      <footer className="bg-charcoal text-white">
+      {/* ── FOOTER (dark forest green) ───────────────── */}
+      <footer className="bg-green-footer text-white">
         <div className="max-w-7xl mx-auto px-6 py-14 flex flex-col md:flex-row items-start justify-between gap-10">
           {/* Brand */}
           <div className="max-w-xs">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center">
-                <span
-                  className="text-[10px] font-semibold tracking-[0.2em] text-white"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  AVP
-                </span>
+              <ImageWithFallback
+                src={logoImg}
+                alt="AVP – Anmol Video Production"
+                className="h-14 w-14 object-contain brightness-0 invert"
+              />
+              <div>
+                <p className="text-sm font-semibold tracking-wide text-white">
+                  Anmol Video Productions
+                </p>
+                <p className="text-white/40 text-[11px] mt-0.5">
+                  Wedding Photography &amp; Cinematography
+                </p>
               </div>
-              <p className="text-sm font-medium tracking-wide">
-                Anmol Video Productions
-              </p>
             </div>
-            <p className="text-white/40 text-[12px] leading-relaxed mb-6">
-              A wedding photography and videography team based in California,
-              dedicated to capturing your most meaningful moments with heart
-              and artistry.
+            <p className="text-white/45 text-[12px] leading-relaxed mb-6">
+              A wedding photography and videography team dedicated to capturing
+              your most meaningful moments with heart and artistry.
             </p>
-            <div className="flex items-center gap-4 text-white/40">
-              {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
-                <Icon
-                  key={i}
-                  size={14}
-                  strokeWidth={1.5}
-                  className="cursor-pointer hover:text-white transition-colors"
-                />
+            {/* Social media links */}
+            <div className="flex items-center gap-4">
+              {[
+                { Icon: Instagram, label: "Instagram" },
+                { Icon: Facebook, label: "Facebook" },
+                { Icon: Youtube, label: "YouTube" },
+                { Icon: Twitter, label: "Twitter" },
+              ].map(({ Icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="text-white/45 hover:text-white transition-colors"
+                >
+                  <Icon size={15} strokeWidth={1.5} />
+                </a>
               ))}
             </div>
           </div>
 
-          {/* Nav */}
-          <nav className="flex flex-col gap-2.5">
-            {["Home", "About", "Portfolio", "Blog", "Contact"].map((item) => (
+          {/* Nav links */}
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+              Navigation
+            </p>
+            {FOOTER_LINKS.map((item) => (
               <a
                 key={item}
                 href="#"
-                className="text-[13px] text-white/45 hover:text-white transition-colors"
+                className="text-[13px] text-white/50 hover:text-white transition-colors"
               >
                 {item}
               </a>
             ))}
-          </nav>
+          </div>
+
+          {/* Contact info */}
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+              Get In Touch
+            </p>
+            <p className="text-[13px] text-white/50">hello@avpstudio.com</p>
+            <p className="text-[13px] text-white/50">California, USA</p>
+            <a
+              href="#"
+              className="mt-2 inline-block border border-white/30 text-white/70 text-[11px] tracking-[0.18em] uppercase px-5 py-2.5 hover:border-white hover:text-white transition-all"
+            >
+              Book Now
+            </a>
+          </div>
         </div>
 
         <div className="border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-6 py-5">
+          <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <p className="text-white/25 text-[11px]">
-              © Anmol Video Productions. All Rights Reserved.
+              © 2025 Anmol Video Productions. All Rights Reserved.
             </p>
+            <nav className="hidden md:flex items-center gap-5">
+              {FOOTER_LINKS.map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="text-[11px] text-white/30 hover:text-white/60 transition-colors"
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
           </div>
         </div>
       </footer>
