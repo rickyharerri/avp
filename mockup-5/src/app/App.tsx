@@ -70,8 +70,8 @@ const SERVICES = [
   },
 ];
 
-const NAV_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact", "More"];
-const FOOTER_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact"];
+const NAV_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog"];
+const FOOTER_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog", "Contact us"];
 const TESTIMONIALS = [
   {
     quote:
@@ -206,16 +206,24 @@ export default function App() {
             )}
           </nav>
 
-          {/* Social icons */}
-          <div className="hidden md:flex items-center gap-3.5">
-            {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
-              <Icon
-                key={i}
-                size={20}
-                strokeWidth={1.5}
-                className="cursor-pointer text-charcoal hover:text-green-dark transition-colors"
-              />
-            ))}
+          {/* Social icons + CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center gap-3.5">
+              {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
+                <Icon
+                  key={i}
+                  size={20}
+                  strokeWidth={1.5}
+                  className="cursor-pointer text-charcoal hover:text-green-dark transition-colors"
+                />
+              ))}
+            </div>
+            <a
+              href="#contact-us"
+              className="inline-flex items-center bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 hover:opacity-90 transition-opacity"
+            >
+              Contact Us
+            </a>
           </div>
 
           {/* Mobile toggle */}
@@ -225,6 +233,8 @@ export default function App() {
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
+
+          
         </div>
 
         {mobileOpen && (
@@ -239,6 +249,13 @@ export default function App() {
                 {item}
               </a>
             ))}
+            <a
+              href="#contact-us"
+              className="mt-2 inline-flex w-fit items-center bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 hover:opacity-90 transition-opacity"
+              onClick={() => setMobileOpen(false)}
+            >
+              Contact Us
+            </a>
           </div>
         )}
       </header>
@@ -451,7 +468,7 @@ export default function App() {
       </section>
 
       {/* ── LET'S TELL YOUR STORY ───────────────────── */}
-      <section className="bg-l-cream m-7 p-7">
+      <section id="contact-us" className="bg-l-cream m-7 p-7 scroll-mt-4">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch">
           <div className="relative min-h-[520px]">
             <img
