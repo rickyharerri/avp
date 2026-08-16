@@ -95,9 +95,14 @@ export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
-    location: "",
+    sessionType: "",
+    eventDate: "",
+    city: "",
+    guestCount: "",
     message: "",
+    captcha: "",
   });
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [isTestimonialHovered, setIsTestimonialHovered] = useState(false);
@@ -111,8 +116,32 @@ export default function App() {
   }, []);
 
   const handleInput = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
+
+  const minEventDate = (() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const year = tomorrow.getFullYear();
+    const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
+    const day = String(tomorrow.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  })();
+  const floatingLabelClass = (hasValue: boolean) =>
+    `pointer-events-none absolute left-4 text-stone-500 transition-all duration-200 ${
+      hasValue
+        ? "top-1.5 translate-y-0 text-[10px]"
+        : "top-1/2 -translate-y-1/2 text-[13px]"
+    } peer-focus:top-1.5 peer-focus:translate-y-0 peer-focus:text-[10px]`;
+
+  const floatingTextAreaLabelClass = (hasValue: boolean) =>
+    `pointer-events-none absolute left-4 text-stone-500 transition-all duration-200 ${
+      hasValue
+        ? "top-1.5 translate-y-0 text-[10px]"
+        : "top-4 text-[13px]"
+    } peer-focus:top-1.5 peer-focus:translate-y-0 peer-focus:text-[10px]`;
 
   const showNextTestimonial = () => {
     setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
@@ -444,40 +473,149 @@ export default function App() {
               className="space-y-3.5 max-w-sm"
               onSubmit={(e) => e.preventDefault()}
             >
-              <div className="grid grid-cols-2 gap-3.5">
-                <input
-                  name="name"
-                  type="text"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleInput}
-                  className="bg-stone-100 px-4 py-3 text-[13px] text-charcoal placeholder-stone-400 border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
-                />
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleInput}
-                  className="bg-stone-100 px-4 py-3 text-[13px] text-charcoal placeholder-stone-400 border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="relative">
+                  <input
+                    name="name"
+                    type="text"
+                    placeholder=" "
+                    value={formData.name}
+                    onChange={handleInput}
+                    className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                  />
+                  <label className={floatingLabelClass(Boolean(formData.name))}>
+                    Name
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    name="phone"
+                    type="tel"
+                    placeholder=" "
+                    value={formData.phone}
+                    onChange={handleInput}
+                    className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                  />
+                  <label className={floatingLabelClass(Boolean(formData.phone))}>
+                    Phone
+                  </label>
+                </div>
               </div>
-              <input
-                name="location"
-                type="text"
-                placeholder="Location"
-                value={formData.location}
-                onChange={handleInput}
-                className="w-full bg-stone-100 px-4 py-3 text-[13px] text-charcoal placeholder-stone-400 border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
-              />
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                rows={4}
-                value={formData.message}
-                onChange={handleInput}
-                className="w-full bg-stone-100 px-4 py-3 text-[13px] text-charcoal placeholder-stone-400 border-0 focus:outline-none focus:ring-1 focus:ring-green-dark resize-none"
-              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="relative">
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder=" "
+                    value={formData.email}
+                    onChange={handleInput}
+                    className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                  />
+                  <label className={floatingLabelClass(Boolean(formData.email))}>
+                    Email
+                  </label>
+                </div>
+
+                <div className="relative">
+                <input
+                  name="guestCount"
+                  type="number"
+                  min="0"
+                  placeholder=" "
+                  value={formData.guestCount}
+                  onChange={handleInput}
+                  className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                />
+                <label className={floatingLabelClass(Boolean(formData.guestCount))}>
+                  Estimate Guest Count
+                </label>
+              </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="relative">
+                  <input
+                    name="eventDate"
+                    type="date"
+                    min={minEventDate}
+                    value={formData.eventDate}
+                    onChange={handleInput}
+                    className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                  />
+                  <label className={floatingLabelClass(true)}>
+                    Event Date
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    name="city"
+                    type="text"
+                    placeholder=" "
+                    value={formData.city}
+                    onChange={handleInput}
+                    className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                  />
+                  <label className={floatingLabelClass(Boolean(formData.city))}>
+                    City
+                  </label>
+                </div>
+              </div>
+
+              
+                <div className="relative">
+                  <select
+                    name="sessionType"
+                    value={formData.sessionType}
+                    onChange={handleInput}
+                    className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                  >
+                    <option value="" disabled />
+                    <option value="Wedding">Wedding</option>
+                    <option value="Engagement">Engagement</option>
+                    <option value="Photo Shoot">Photo Shoot</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <label
+                    className={floatingLabelClass(Boolean(formData.sessionType))}
+                  >
+                    What type of session are you looking for?
+                  </label>
+                </div>
+
+
+
+
+              <div className="relative">
+                <textarea
+                  name="message"
+                  placeholder=" "
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleInput}
+                  className="peer w-full bg-stone-100 px-4 pt-6 pb-3 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark resize-none"
+                />
+                <label
+                  className={floatingTextAreaLabelClass(Boolean(formData.message))}
+                >
+                  Message
+                </label>
+              </div>
+
+              <div className="relative">
+                <input
+                  name="captcha"
+                  type="text"
+                  placeholder=" "
+                  value={formData.captcha}
+                  onChange={handleInput}
+                  className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
+                />
+                <label className={floatingLabelClass(Boolean(formData.captcha))}>
+                  Captcha
+                </label>
+              </div>
+
               <button
                 type="submit"
                 className="bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:opacity-90 transition-opacity"
