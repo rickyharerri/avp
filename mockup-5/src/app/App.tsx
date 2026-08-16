@@ -72,6 +72,23 @@ const SERVICES = [
 
 const NAV_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact", "More"];
 const FOOTER_LINKS = ["Home", "About", "Portfolio", "Blog", "Contact"];
+const TESTIMONIALS = [
+  {
+    quote:
+      "If you are considering them to cover your events don't think twice. Thank you everyone at Anmol video production for bringing our vision to our wedding to life and gifting us beautiful memories to cherish.",
+    author: "Amrit",
+  },
+  {
+    quote:
+      "They captured every emotion so naturally. Our family keeps rewatching the film because it feels like reliving the day all over again.",
+    author: "Jasleen",
+  },
+  {
+    quote:
+      "Professional, calm, and incredibly creative. The photos and cinematic highlights were beyond what we imagined.",
+    author: "Harnoor",
+  },
+];
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -82,6 +99,8 @@ export default function App() {
     location: "",
     message: "",
   });
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isTestimonialHovered, setIsTestimonialHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,6 +113,28 @@ export default function App() {
   const handleInput = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
+
+  const showNextTestimonial = () => {
+    setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+  };
+
+  const showPrevTestimonial = () => {
+    setActiveTestimonial(
+      (prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
+    );
+  };
+
+  useEffect(() => {
+    if (isTestimonialHovered || TESTIMONIALS.length <= 1) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 4500);
+
+    return () => window.clearInterval(intervalId);
+  }, [isTestimonialHovered]);
 
   return (
     <div
@@ -334,7 +375,9 @@ export default function App() {
 
       {/* ── TESTIMONIAL (parallax fixed bg) ─────────── */}
       <section
-        className="relative py-32"
+        className="relative min-h-[440px] md:min-h-[500px] flex items-center"
+        onMouseEnter={() => setIsTestimonialHovered(true)}
+        onMouseLeave={() => setIsTestimonialHovered(false)}
         style={{
           backgroundImage: `url(${testimonialBg})`,
           backgroundAttachment: "fixed",
@@ -344,19 +387,36 @@ export default function App() {
       >
         {/* Dark overlay with opacity */}
         <div className="absolute inset-0 bg-charcoal/80" />
-        <div className="relative max-w-2xl mx-auto px-6 text-center">
+
+        <button
+          type="button"
+          aria-label="Previous testimonial"
+          onClick={showPrevTestimonial}
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full border border-white/45 bg-white/20 text-white/95 hover:bg-white/30 transition-colors"
+        >
+          &larr;
+        </button>
+
+        <button
+          type="button"
+          aria-label="Next testimonial"
+          onClick={showNextTestimonial}
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full border border-white/45 bg-white/20 text-white/95 hover:bg-white/30 transition-colors"
+        >
+          &rarr;
+        </button>
+
+        <div className="relative max-w-2xl mx-auto px-14 md:px-6 text-center">
           <p
-            className="text-xl md:text-2xl leading-relaxed italic text-white/90 mb-8"
+            key={activeTestimonial}
+            className="min-h-[160px] md:min-h-[180px] flex items-center justify-center text-xl md:text-2xl leading-relaxed italic text-white/90 mb-8"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            "If you are considering them to cover your events don't think
-            twice. Thank you everyone at Anmol video production for bringing
-            our vision to our wedding to life and gifting us beautiful
-            memories to cherish."
+            "{TESTIMONIALS[activeTestimonial].quote}"
           </p>
           <div className="w-8 h-px bg-white/30 mx-auto mb-6" />
           <p className="text-white/45 text-[11px] uppercase tracking-[0.3em]">
-            — Amrit
+            — {TESTIMONIALS[activeTestimonial].author}
           </p>
         </div>
       </section>
