@@ -8,6 +8,7 @@ import {
   X,
   ChevronDown,
 } from "lucide-react";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import heroImage from "@/imports/hero-image.jpg";
 import logoImg from "@/imports/logo-no-bg.png";
@@ -72,6 +73,22 @@ const SERVICES = [
 
 const NAV_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog"];
 const FOOTER_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog", "Contact us"];
+const SERVICE_LINKS = [
+  "Wedding Photography",
+  "Wedding Cinematography",
+  "Engagement Sessions",
+  "Destination Weddings",
+  "One Day Stories",
+];
+const SEO_LINKS = [
+  "Best Wedding Shoot in California",
+  "Best Wedding Photographer in California",
+  "Best Cinematographer in California",
+  "Top Engagement Photographer in California",
+  "Destination Wedding Photographer California",
+];
+const WHATSAPP_CHAT_LINK =
+  "https://wa.me/15593288351?text=Hi%20Anmol%20Video%20Productions%2C%20I%20would%20like%20to%20book%20a%20session.";
 const TESTIMONIALS = [
   {
     quote:
@@ -689,11 +706,43 @@ export default function App() {
           </div>
 
           {/* Nav links */}
-          <div className="flex flex-col gap-2.5">
+          {/* <div className="flex flex-col gap-2.5">
             <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
               Navigation
             </p>
             {FOOTER_LINKS.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-[13px] text-white/50 hover:text-white transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </div> */}
+
+          {/* Services links */}
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+              Services
+            </p>
+            {SERVICE_LINKS.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-[13px] text-white/50 hover:text-white transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+
+          {/* SEO links */}
+          <div className="flex flex-col gap-2.5">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+              Popular Searches
+            </p>
+            {SEO_LINKS.map((item) => (
               <a
                 key={item}
                 href="#"
@@ -728,6 +777,8 @@ export default function App() {
             <nav className="hidden md:flex items-center gap-1 text-[11px] text-white/30 ">
               Website developed by <a
                   key="credit"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   href="https://www.getlogix.com"
                   className="text-[11px] text-white/60 hover:text-white/90 transition-colors"
                 >
@@ -737,6 +788,15 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <a
+        href={WHATSAPP_CHAT_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+        className="fixed right-5 bottom-5 z-50 flex h-13 w-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 lg:hidden"
+      >
+        <WhatsAppIcon fontSize="medium" />
+      </a>
     </div>
   );
 }
