@@ -496,7 +496,7 @@ export default function App() {
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
-          <div id="contact-form" className="py-20 px-6 md:pl-0 py-0 px-0 bg-l-cream scroll-mt-5">
+          <div id="contact-form" className="py-20 px-6 md:pl-16 bg-l-cream scroll-mt-5">
             <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 mb-4">
               Let's Tell Your Story
             </p>
