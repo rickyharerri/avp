@@ -195,7 +195,7 @@ export default function App() {
             <ImageWithFallback
               src={logoImg}
               alt="AVP – Anmol Video Production"
-              className={`${isScrolled ? "h-15 w-15" : "h-30 w-30 mt-20"} object-contain transition-all duration-300`}
+              className={`${isScrolled || mobileOpen ? "h-15 w-15" : "h-30 w-30 mt-20"} object-contain transition-all duration-300`}
             />
           </a>
 
@@ -243,13 +243,22 @@ export default function App() {
             </a>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden text-charcoal"
-            onClick={() => setMobileOpen((v) => !v)}
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* Mobile CTA + toggle */}
+          <div className="md:hidden flex items-center gap-2.5">
+            <a
+              href="#contact-form"
+              className="inline-flex items-center bg-green-dark text-white text-[10px] tracking-[0.16em] uppercase px-3.5 py-2 hover:opacity-90 transition-opacity"
+            >
+              Contact Us
+            </a>
+            <button
+              className="text-charcoal"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
 
           
         </div>
@@ -266,13 +275,6 @@ export default function App() {
                 {item}
               </a>
             ))}
-            <a
-              href="#contact-us"
-              className="mt-2 inline-flex w-fit items-center bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 hover:opacity-90 transition-opacity"
-              onClick={() => setMobileOpen(false)}
-            >
-              Contact Us
-            </a>
           </div>
         )}
       </header>
@@ -494,7 +496,7 @@ export default function App() {
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
-          <div className="py-20 px-6 md:pl-16 bg-l-cream">
+          <div id="contact-form" className="py-20 px-6 md:pl-0 py-0 px-0 bg-l-cream scroll-mt-5">
             <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 mb-4">
               Let's Tell Your Story
             </p>
