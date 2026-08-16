@@ -201,3 +201,37 @@
 .bg-l-cream {
   background-color: var(--l-cream);
 }
+
+.hero-bg-gradient-dynamic {
+  background: linear-gradient(
+    to right,
+    #f7f4ef 18%,
+    #f7f4efcc 38%,
+    #f7f4ef55 65%,
+    transparent 78%
+  );
+}
+
+
+
+@media (max-width: 768px) {
+
+.hero-text-color,
+.hero-text-color * {
+  color: white !important;
+}
+
+.hero-bg-gradient-dynamic { background: none;
+}
+}
+
+@media (max-width: 480px) {
+  /* Phone devices */
+  .hero-text-color,
+  .hero-text-color * {
+  color:white !important;
+}
+.hero-bg-gradient-dynamic { background: none;
+}
+}
+

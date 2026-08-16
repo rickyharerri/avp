@@ -182,14 +182,10 @@ export default function App() {
         />
         {/* Gradient overlay: solid cream on left → transparent on right */}
         <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, #f7f4ef 38%, #f7f4efcc 52%, #f7f4ef55 65%, transparent 78%)",
-          }}
+          className="absolute inset-0 hero-bg-gradient-dynamic"
         />
         {/* Content */}
-        <div className="relative max-w-7xl mx-auto px-6 flex items-center min-h-[calc(100vh-64px)]">
+        <div className="hero-text-color relative max-w-7xl mx-auto px-6 flex items-center min-h-[calc(100vh-64px)]">
           <div className="max-w-[520px] py-20">
             <p className="text-[10px] uppercase tracking-[0.28em] text-stone-900 mb-7">
               Wedding Photography &amp; Cinematography
