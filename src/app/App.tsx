@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Instagram,
   Facebook,
@@ -192,20 +193,23 @@ const TESTIMONIALS = [
   },
 ];
 
+const EMPTY_FORM = {
+  name: "",
+  phone: "",
+  email: "",
+  sessionType: "",
+  eventDate: "",
+  city: "",
+  guestCount: "",
+  message: "",
+  website: "",
+};
+
 export default function App({ page }: { page: Page }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    sessionType: "",
-    eventDate: "",
-    city: "",
-    guestCount: "",
-    message: "",
-    captcha: "",
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [isTestimonialHovered, setIsTestimonialHovered] = useState(false);
   // Computed after mount so the prerendered HTML doesn't freeze the build date
@@ -233,6 +237,34 @@ export default function App({ page }: { page: Page }) {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Honeypot: only bots fill the hidden "website" field
+    if (formData.website) return;
+    setFormStatus("sending");
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          session_type: formData.sessionType,
+          event_date: formData.eventDate,
+          city: formData.city,
+          guest_count: formData.guestCount,
+          message: formData.message,
+        },
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
+      setFormStatus("sent");
+      setFormData(EMPTY_FORM);
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   const floatingLabelClass = (hasValue: boolean) =>
     `pointer-events-none absolute left-4 text-stone-600 transition-all duration-200 ${
@@ -668,7 +700,7 @@ export default function App({ page }: { page: Page }) {
             </p>
             <form
               className="space-y-3.5 max-w-sm"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="relative">
@@ -676,6 +708,7 @@ export default function App({ page }: { page: Page }) {
                     id="contact-name"
                     name="name"
                     type="text"
+                    required
                     placeholder=" "
                     value={formData.name}
                     onChange={handleInput}
@@ -707,6 +740,7 @@ export default function App({ page }: { page: Page }) {
                     id="contact-email"
                     name="email"
                     type="email"
+                    required
                     placeholder=" "
                     value={formData.email}
                     onChange={handleInput}
@@ -795,6 +829,7 @@ export default function App({ page }: { page: Page }) {
                 <textarea
                   id="contact-message"
                   name="message"
+                  required
                   placeholder=" "
                   rows={4}
                   value={formData.message}
@@ -809,27 +844,34 @@ export default function App({ page }: { page: Page }) {
                 </label>
               </div>
 
-              <div className="relative">
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label htmlFor="contact-website">Website</label>
                 <input
-                  id="contact-captcha"
-                  name="captcha"
+                  id="contact-website"
+                  name="website"
                   type="text"
-                  placeholder=" "
-                  value={formData.captcha}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
                   onChange={handleInput}
-                  className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                 />
-                <label htmlFor="contact-captcha" className={floatingLabelClass(Boolean(formData.captcha))}>
-                  Captcha
-                </label>
               </div>
 
               <button
                 type="submit"
-                className="bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:opacity-90 transition-opacity"
+                disabled={formStatus === "sending"}
+                className="bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-60"
               >
-                Send Message
+                {formStatus === "sending" ? "Sending..." : "Send Message"}
               </button>
+              <p role="status" aria-live="polite" className="text-[13px] min-h-5">
+                {formStatus === "sent" && (
+                  <span className="text-green-dark">Thank you! Your message has been sent. We'll be in touch soon.</span>
+                )}
+                {formStatus === "error" && (
+                  <span className="text-red-700">Sorry, something went wrong. Please try again or message us on WhatsApp.</span>
+                )}
+              </p>
             </form>
           </div>
         </div>
