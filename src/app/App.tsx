@@ -80,7 +80,8 @@ export type Page =
   | "portfolio/portfolio-2"
   | "services"
   | "services/service-1"
-  | "services/service-2";
+  | "services/service-2"
+  | "blog";
 
 const PAGE_HEADERS: Record<Exclude<Page, "home">, { title: string; intro: string }> = {
   "about-us": {
@@ -114,6 +115,10 @@ const PAGE_HEADERS: Record<Exclude<Page, "home">, { title: string; intro: string
     title: "Service 2",
     intro: "Everything you need to know about this service and how we can help on your day.",
   },
+  blog: {
+    title: "Blog",
+    intro: "Wedding stories, planning tips and behind-the-scenes moments from our team.",
+  },
   contact: {
     title: "Contact Us",
     intro:
@@ -140,7 +145,7 @@ const NAV_LINKS: { label: string; href: string; children?: { label: string; href
       { label: "Service 2", href: "/services/service-2/" },
     ],
   },
-  { label: "Blog", href: "#" },
+  { label: "Blog", href: "/blog/" },
 ];
 const FOOTER_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog", "Contact us"];
 const SERVICE_LINKS = [

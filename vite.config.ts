@@ -44,6 +44,7 @@ export default defineConfig({
         services: path.resolve(__dirname, 'services/index.html'),
         'service-1': path.resolve(__dirname, 'services/service-1/index.html'),
         'service-2': path.resolve(__dirname, 'services/service-2/index.html'),
+        blog: path.resolve(__dirname, 'blog/index.html'),
       },
     },
   },

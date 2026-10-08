@@ -20,6 +20,7 @@ const PAGES = [
   { page: "services", file: "services/index.html", url: "/services/" },
   { page: "services/service-1", file: "services/service-1/index.html", url: "/services/service-1/" },
   { page: "services/service-2", file: "services/service-2/index.html", url: "/services/service-2/" },
+  { page: "blog", file: "blog/index.html", url: "/blog/" },
 ];
 
 const { render } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
