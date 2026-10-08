@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { imagetools } from 'vite-imagetools'
 
+const root = import.meta.dirname
+
 
 function figmaAssetResolver() {
   return {
@@ -11,7 +13,7 @@ function figmaAssetResolver() {
     resolveId(id) {
       if (id.startsWith('figma:asset/')) {
         const filename = id.replace('figma:asset/', '')
-        return path.resolve(__dirname, 'src/assets', filename)
+        return path.resolve(root, 'src/assets', filename)
       }
     },
   }
@@ -30,23 +32,23 @@ export default defineConfig({
   resolve: {
     alias: {
       // Alias @ to the src directory
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(root, './src'),
     },
   },
 
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
-        'about-us': path.resolve(__dirname, 'about-us/index.html'),
-        contact: path.resolve(__dirname, 'contact/index.html'),
-        portfolio: path.resolve(__dirname, 'portfolio/index.html'),
-        'portfolio-1': path.resolve(__dirname, 'portfolio/portfolio-1/index.html'),
-        'portfolio-2': path.resolve(__dirname, 'portfolio/portfolio-2/index.html'),
-        services: path.resolve(__dirname, 'services/index.html'),
-        'service-1': path.resolve(__dirname, 'services/service-1/index.html'),
-        'service-2': path.resolve(__dirname, 'services/service-2/index.html'),
-        blog: path.resolve(__dirname, 'blog/index.html'),
+        main: path.resolve(root, 'index.html'),
+        'about-us': path.resolve(root, 'about-us/index.html'),
+        contact: path.resolve(root, 'contact/index.html'),
+        portfolio: path.resolve(root, 'portfolio/index.html'),
+        'portfolio-1': path.resolve(root, 'portfolio/portfolio-1/index.html'),
+        'portfolio-2': path.resolve(root, 'portfolio/portfolio-2/index.html'),
+        services: path.resolve(root, 'services/index.html'),
+        'service-1': path.resolve(root, 'services/service-1/index.html'),
+        'service-2': path.resolve(root, 'services/service-2/index.html'),
+        blog: path.resolve(root, 'blog/index.html'),
       },
     },
   },
