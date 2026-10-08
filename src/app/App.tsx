@@ -8,43 +8,53 @@ import {
   X,
   ChevronDown,
 } from "lucide-react";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import heroImage from "@/imports/hero-image.jpg";
-import logoImg from "@/imports/logo-no-bg.png";
+import heroImage from "@/imports/hero-image.jpg?w=1920&format=webp";
+import heroSrcSet from "@/imports/hero-image.jpg?w=768;1280;1920&format=webp&as=srcset";
+import logoImg from "@/imports/logo-no-bg.png?w=240&format=webp";
 import cameraIcon from "@/imports/icons/camera.svg";
 import clapperboardIcon from "@/imports/icons/clapperboard.svg";
 import videoIcon from "@/imports/icons/video.svg";
 import webcamIcon from "@/imports/icons/webcam.svg";
-import whatWeAreImage from "@/imports/what-we-are.jpg";
-import testimonialBg from "@/imports/testimonial-bg.jpg";
-import contactUsBg from "@/imports/contact-us.jpg";
+import whatWeAreImage from "@/imports/what-we-are.jpg?w=1200&format=webp";
+import whatWeAreSrcSet from "@/imports/what-we-are.jpg?w=600;1200&format=webp&as=srcset";
+import testimonialBg from "@/imports/testimonial-bg.jpg?w=1920&format=webp&quality=70";
+import contactUsBg from "@/imports/contact-us.jpg?w=1200&format=webp";
+import contactUsSrcSet from "@/imports/contact-us.jpg?w=600;1200&format=webp&as=srcset";
 
-import feature1Img from "@/imports/feature-1.jpg";
-import feature2Img from "@/imports/feature-2.jpg";
-import feature3Img from "@/imports/feature-3.jpg";
-import feature4Img from "@/imports/feature-4.jpg";
+import feature1Img from "@/imports/feature-1.jpg?w=800&format=webp";
+import feature1SrcSet from "@/imports/feature-1.jpg?w=400;800&format=webp&as=srcset";
+import feature2Img from "@/imports/feature-2.jpg?w=800&format=webp";
+import feature2SrcSet from "@/imports/feature-2.jpg?w=400;800&format=webp&as=srcset";
+import feature3Img from "@/imports/feature-3.jpg?w=800&format=webp";
+import feature3SrcSet from "@/imports/feature-3.jpg?w=400;800&format=webp&as=srcset";
+import feature4Img from "@/imports/feature-4.jpg?w=800&format=webp";
+import feature4SrcSet from "@/imports/feature-4.jpg?w=400;800&format=webp&as=srcset";
 
 const PORTFOLIO = [
   {
     name: "Garry & Roman",
     tag: "WEDDING",
     img: feature1Img,
+    srcSet: feature1SrcSet,
   },
   {
     name: "Simran & Meet",
     tag: "EVENT",
     img: feature2Img,
+    srcSet: feature2SrcSet,
   },
   {
     name: "One Day Shoot With Ordinary People",
     tag: "",
     img: feature3Img,
+    srcSet: feature3SrcSet,
   },
   {
     name: "Manpreet & Anmol",
     tag: "FILM",
     img: feature4Img,
+    srcSet: feature4SrcSet,
   },
 ];
 
@@ -198,6 +208,17 @@ export default function App({ page }: { page: Page }) {
   });
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [isTestimonialHovered, setIsTestimonialHovered] = useState(false);
+  // Computed after mount so the prerendered HTML doesn't freeze the build date
+  const [minEventDate, setMinEventDate] = useState("");
+
+  useEffect(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const year = tomorrow.getFullYear();
+    const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
+    const day = String(tomorrow.getDate()).padStart(2, "0");
+    setMinEventDate(`${year}-${month}-${day}`);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -213,23 +234,15 @@ export default function App({ page }: { page: Page }) {
     >
   ) => setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
 
-  const minEventDate = (() => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const year = tomorrow.getFullYear();
-    const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
-    const day = String(tomorrow.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  })();
   const floatingLabelClass = (hasValue: boolean) =>
-    `pointer-events-none absolute left-4 text-stone-500 transition-all duration-200 ${
+    `pointer-events-none absolute left-4 text-stone-600 transition-all duration-200 ${
       hasValue
         ? "top-1.5 translate-y-0 text-[10px]"
         : "top-1/2 -translate-y-1/2 text-[13px]"
     } peer-focus:top-1.5 peer-focus:translate-y-0 peer-focus:text-[10px]`;
 
   const floatingTextAreaLabelClass = (hasValue: boolean) =>
-    `pointer-events-none absolute left-4 text-stone-500 transition-all duration-200 ${
+    `pointer-events-none absolute left-4 text-stone-600 transition-all duration-200 ${
       hasValue
         ? "top-1.5 translate-y-0 text-[10px]"
         : "top-4 text-[13px]"
@@ -400,9 +413,13 @@ export default function App({ page }: { page: Page }) {
       {page === "home" && (
       <section className="relative pt-16 min-h-screen overflow-hidden">
         {/* Full-width background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroImage})` }}
+        <img
+          src={heroImage}
+          srcSet={heroSrcSet}
+          sizes="100vw"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          {...{ fetchpriority: "high" }}
         />
         {/* Gradient overlay: solid cream on left → transparent on right */}
         <div
@@ -484,7 +501,7 @@ export default function App({ page }: { page: Page }) {
           </p>
           <div className="w-12 h-1 bg-green-dark mx-auto mb-10" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mb-10 ">
-            {PORTFOLIO.map(({ name, tag, img }) => (
+            {PORTFOLIO.map(({ name, tag, img, srcSet }) => (
               <div
                 key={name}
                 className="relative group overflow-hidden"
@@ -492,7 +509,11 @@ export default function App({ page }: { page: Page }) {
               >
                 <img
                   src={img}
+                  srcSet={srcSet}
+                  sizes="(min-width: 768px) 25vw, 50vw"
                   alt={name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
@@ -538,7 +559,7 @@ export default function App({ page }: { page: Page }) {
             >
               We capture your most meaningful moments with heart and artistry.
             </h2>
-            <p className="text-stone-500 text-[14px] leading-relaxed mb-16 max-w-md">
+            <p className="text-stone-600 text-[14px] leading-relaxed mb-16 max-w-md">
               Based in California, we specialize in motion weddings and
               destination elopements worldwide. Our goal and priority is to
               create timeless visuals that reflect your unique story and
@@ -559,7 +580,11 @@ export default function App({ page }: { page: Page }) {
           <div>
             <img
               src={whatWeAreImage}
+              srcSet={whatWeAreSrcSet}
+              sizes="(min-width: 768px) 50vw, 100vw"
               alt="Anmol Studio"
+              loading="lazy"
+              decoding="async"
               className="w-full h-[720px] object-cover"
             />
           </div>
@@ -610,7 +635,7 @@ export default function App({ page }: { page: Page }) {
             "{TESTIMONIALS[activeTestimonial].quote}"
           </p>
           <div className="w-8 h-px bg-white/30 mx-auto mb-6" />
-          <p className="text-white/45 text-[11px] uppercase tracking-[0.3em]">
+          <p className="text-white/70 text-[11px] uppercase tracking-[0.3em]">
             — {TESTIMONIALS[activeTestimonial].author}
           </p>
         </div>
@@ -624,7 +649,11 @@ export default function App({ page }: { page: Page }) {
           <div className="relative min-h-[520px]">
             <img
               src={contactUsBg}
+              srcSet={contactUsSrcSet}
+              sizes="(min-width: 768px) 50vw, 100vw"
               alt="Wedding couple"
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
@@ -633,7 +662,7 @@ export default function App({ page }: { page: Page }) {
               Let's Tell Your Story
             </p>
             <div className="w-52 h-1 bg-green-dark mx-to mb-10" />
-            <p className="text-stone-500 text-[14px] leading-relaxed mb-8 max-w-sm">
+            <p className="text-stone-600 text-[14px] leading-relaxed mb-8 max-w-sm">
               Ready to create your most meaningful memories? Get in touch to
               plan your shoot and celebrate your love story beautifully.
             </p>
@@ -644,6 +673,7 @@ export default function App({ page }: { page: Page }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="relative">
                   <input
+                    id="contact-name"
                     name="name"
                     type="text"
                     placeholder=" "
@@ -651,12 +681,13 @@ export default function App({ page }: { page: Page }) {
                     onChange={handleInput}
                     className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                   />
-                  <label className={floatingLabelClass(Boolean(formData.name))}>
+                  <label htmlFor="contact-name" className={floatingLabelClass(Boolean(formData.name))}>
                     Name
                   </label>
                 </div>
                 <div className="relative">
                   <input
+                    id="contact-phone"
                     name="phone"
                     type="tel"
                     placeholder=" "
@@ -664,7 +695,7 @@ export default function App({ page }: { page: Page }) {
                     onChange={handleInput}
                     className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                   />
-                  <label className={floatingLabelClass(Boolean(formData.phone))}>
+                  <label htmlFor="contact-phone" className={floatingLabelClass(Boolean(formData.phone))}>
                     Phone
                   </label>
                 </div>
@@ -673,6 +704,7 @@ export default function App({ page }: { page: Page }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="relative">
                   <input
+                    id="contact-email"
                     name="email"
                     type="email"
                     placeholder=" "
@@ -680,13 +712,14 @@ export default function App({ page }: { page: Page }) {
                     onChange={handleInput}
                     className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                   />
-                  <label className={floatingLabelClass(Boolean(formData.email))}>
+                  <label htmlFor="contact-email" className={floatingLabelClass(Boolean(formData.email))}>
                     Email
                   </label>
                 </div>
 
                 <div className="relative">
                 <input
+                  id="contact-guest-count"
                   name="guestCount"
                   type="number"
                   min="0"
@@ -695,7 +728,7 @@ export default function App({ page }: { page: Page }) {
                   onChange={handleInput}
                   className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                 />
-                <label className={floatingLabelClass(Boolean(formData.guestCount))}>
+                <label htmlFor="contact-guest-count" className={floatingLabelClass(Boolean(formData.guestCount))}>
                   Estimate Guest Count
                 </label>
               </div>
@@ -704,6 +737,7 @@ export default function App({ page }: { page: Page }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="relative">
                   <input
+                    id="contact-event-date"
                     name="eventDate"
                     type="date"
                     min={minEventDate}
@@ -711,12 +745,13 @@ export default function App({ page }: { page: Page }) {
                     onChange={handleInput}
                     className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                   />
-                  <label className={floatingLabelClass(true)}>
+                  <label htmlFor="contact-event-date" className={floatingLabelClass(true)}>
                     Event Date
                   </label>
                 </div>
                 <div className="relative">
                   <input
+                    id="contact-city"
                     name="city"
                     type="text"
                     placeholder=" "
@@ -724,7 +759,7 @@ export default function App({ page }: { page: Page }) {
                     onChange={handleInput}
                     className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                   />
-                  <label className={floatingLabelClass(Boolean(formData.city))}>
+                  <label htmlFor="contact-city" className={floatingLabelClass(Boolean(formData.city))}>
                     City
                   </label>
                 </div>
@@ -733,6 +768,7 @@ export default function App({ page }: { page: Page }) {
               
                 <div className="relative">
                   <select
+                    id="contact-session-type"
                     name="sessionType"
                     value={formData.sessionType}
                     onChange={handleInput}
@@ -745,6 +781,7 @@ export default function App({ page }: { page: Page }) {
                     <option value="Other">Other</option>
                   </select>
                   <label
+                    htmlFor="contact-session-type"
                     className={floatingLabelClass(Boolean(formData.sessionType))}
                   >
                     What type of session are you looking for?
@@ -756,6 +793,7 @@ export default function App({ page }: { page: Page }) {
 
               <div className="relative">
                 <textarea
+                  id="contact-message"
                   name="message"
                   placeholder=" "
                   rows={4}
@@ -764,6 +802,7 @@ export default function App({ page }: { page: Page }) {
                   className="peer w-full bg-stone-100 px-4 pt-6 pb-3 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark resize-none"
                 />
                 <label
+                  htmlFor="contact-message"
                   className={floatingTextAreaLabelClass(Boolean(formData.message))}
                 >
                   Message
@@ -772,6 +811,7 @@ export default function App({ page }: { page: Page }) {
 
               <div className="relative">
                 <input
+                  id="contact-captcha"
                   name="captcha"
                   type="text"
                   placeholder=" "
@@ -779,7 +819,7 @@ export default function App({ page }: { page: Page }) {
                   onChange={handleInput}
                   className="peer w-full bg-stone-100 px-4 pt-5 pb-2 text-[13px] text-charcoal border-0 focus:outline-none focus:ring-1 focus:ring-green-dark"
                 />
-                <label className={floatingLabelClass(Boolean(formData.captcha))}>
+                <label htmlFor="contact-captcha" className={floatingLabelClass(Boolean(formData.captcha))}>
                   Captcha
                 </label>
               </div>
@@ -811,12 +851,12 @@ export default function App({ page }: { page: Page }) {
                 <p className="text-sm font-semibold tracking-wide text-white">
                   Anmol Video Productions
                 </p>
-                <p className="text-white/40 text-[11px] mt-0.5">
+                <p className="text-white/70 text-[11px] mt-0.5">
                   Wedding Photography &amp; Cinematography
                 </p>
               </div>
             </div>
-            <p className="text-white/45 text-[12px] leading-relaxed mb-6">
+            <p className="text-white/70 text-[12px] leading-relaxed mb-6">
               A wedding photography and videography team dedicated to capturing
               your most meaningful moments with heart and artistry.
             </p>
@@ -832,7 +872,7 @@ export default function App({ page }: { page: Page }) {
                   key={label}
                   href="#"
                   aria-label={label}
-                  className="text-white/45 hover:text-white transition-colors"
+                  className="text-white/70 hover:text-white transition-colors"
                 >
                   <Icon size={15} strokeWidth={1.5} />
                 </a>
@@ -858,7 +898,7 @@ export default function App({ page }: { page: Page }) {
 
           {/* Services links */}
           <div className="flex flex-col gap-2.5">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/70 mb-1">
               Services
             </p>
             {SERVICE_LINKS.map((item) => (
@@ -874,7 +914,7 @@ export default function App({ page }: { page: Page }) {
 
           {/* SEO links */}
           <div className="flex flex-col gap-2.5">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/70 mb-1">
               Popular Searches
             </p>
             {SEO_LINKS.map((item) => (
@@ -890,7 +930,7 @@ export default function App({ page }: { page: Page }) {
 
           {/* Contact info */}
           <div className="flex flex-col gap-2.5">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-1">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/70 mb-1">
               Get In Touch
             </p>
             <p className="text-[13px] text-white/50">hello@avpstudio.com</p>
@@ -909,13 +949,13 @@ export default function App({ page }: { page: Page }) {
             <p className="text-white/60 text-[11px]">
               © 2026 Anmol Video Productions. All Rights Reserved.
             </p>
-            <nav className="hidden md:flex items-center gap-1 text-[11px] text-white/30 ">
+            <nav className="hidden md:flex items-center gap-1 text-[11px] text-white/70 ">
               Website developed by <a
                   key="credit"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://www.getlogix.com"
-                  className="text-[11px] text-white/60 hover:text-white/90 transition-colors"
+                  className="text-[11px] text-white/90 hover:text-white transition-colors"
                 >
                   GetLogix Inc.
                 </a>
@@ -930,7 +970,9 @@ export default function App({ page }: { page: Page }) {
         aria-label="Chat with us on WhatsApp"
         className="fixed right-5 bottom-5 z-50 flex h-13 w-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 lg:hidden"
       >
-        <WhatsAppIcon fontSize="medium" />
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+          <path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z" />
+        </svg>
       </a>
     </div>
   );
