@@ -1,7 +1,9 @@
 
   import { createRoot } from "react-dom/client";
-  import App from "./app/App.tsx";
+  import App, { type Page } from "./app/App.tsx";
   import "./styles/index.css";
 
-  createRoot(document.getElementById("root")!).render(<App />);
+  const rootEl = document.getElementById("root")!;
+  // Replaces the prerendered markup with the interactive app
+  createRoot(rootEl).render(<App page={(rootEl.dataset.page ?? "home") as Page} />);
   

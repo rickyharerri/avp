@@ -71,7 +71,77 @@ const SERVICES = [
   },
 ];
 
-const NAV_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog"];
+export type Page =
+  | "home"
+  | "about-us"
+  | "contact"
+  | "portfolio"
+  | "portfolio/portfolio-1"
+  | "portfolio/portfolio-2"
+  | "services"
+  | "services/service-1"
+  | "services/service-2";
+
+const PAGE_HEADERS: Record<Exclude<Page, "home">, { title: string; intro: string }> = {
+  "about-us": {
+    title: "About Anmol Video Productions",
+    intro:
+      "A California-based wedding photography and cinematography team capturing authentic moments with heart and artistry.",
+  },
+  portfolio: {
+    title: "Our Portfolio",
+    intro:
+      "Weddings, events and films we've had the honour of capturing across California and beyond.",
+  },
+  services: {
+    title: "Wedding Photography & Cinematography Services",
+    intro:
+      "From engagement sessions to destination weddings, we create timeless photos and cinematic films tailored to your story.",
+  },
+  "portfolio/portfolio-1": {
+    title: "Portfolio 1",
+    intro: "A closer look at one of the stories we've had the honour of capturing.",
+  },
+  "portfolio/portfolio-2": {
+    title: "Portfolio 2",
+    intro: "A closer look at one of the stories we've had the honour of capturing.",
+  },
+  "services/service-1": {
+    title: "Service 1",
+    intro: "Everything you need to know about this service and how we can help on your day.",
+  },
+  "services/service-2": {
+    title: "Service 2",
+    intro: "Everything you need to know about this service and how we can help on your day.",
+  },
+  contact: {
+    title: "Contact Us",
+    intro:
+      "Tell us about your day and we'll get back to you to plan your shoot.",
+  },
+};
+
+const NAV_LINKS: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us/" },
+  {
+    label: "Portfolio",
+    href: "/portfolio/",
+    children: [
+      { label: "Portfolio 1", href: "/portfolio/portfolio-1/" },
+      { label: "Portfolio 2", href: "/portfolio/portfolio-2/" },
+    ],
+  },
+  {
+    label: "Services",
+    href: "/services/",
+    children: [
+      { label: "Service 1", href: "/services/service-1/" },
+      { label: "Service 2", href: "/services/service-2/" },
+    ],
+  },
+  { label: "Blog", href: "#" },
+];
 const FOOTER_LINKS = ["Home", "About Us", "Portfolio", "Services", "Blog", "Contact us"];
 const SERVICE_LINKS = [
   "Wedding Photography",
@@ -107,7 +177,7 @@ const TESTIMONIALS = [
   },
 ];
 
-export default function App() {
+export default function App({ page }: { page: Page }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [formData, setFormData] = useState({
@@ -191,7 +261,7 @@ export default function App() {
       <header className="fixed top-0 inset-x-0 z-50 bg-cream">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="shrink-0">
+          <a href="/" className="shrink-0">
             <ImageWithFallback
               src={logoImg}
               alt="AVP – Anmol Video Production"
@@ -201,23 +271,37 @@ export default function App() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-7">
-            {NAV_LINKS.map((item) =>
-              item === "Portfolio" ? (
-                <a
-                  key={item}
-                  href="#"
-                  className="flex items-center gap-1 text-[13px] text-charcoal hover:text-green-dark transition-colors"
-                >
-                  {item}
-                  <ChevronDown size={12} strokeWidth={2} />
-                </a>
+            {NAV_LINKS.map(({ label, href, children }) =>
+              children ? (
+                <div key={label} className="relative group">
+                  <a
+                    href={href}
+                    className="flex items-center gap-1 text-[13px] text-charcoal hover:text-green-dark transition-colors"
+                  >
+                    {label}
+                    <ChevronDown size={12} strokeWidth={2} />
+                  </a>
+                  <div className="absolute left-0 top-full pt-3 hidden group-hover:block group-focus-within:block">
+                    <div className="min-w-44 bg-white shadow-md py-2">
+                      {children.map((child) => (
+                        <a
+                          key={child.href}
+                          href={child.href}
+                          className="block px-4 py-2 text-[13px] text-charcoal hover:text-green-dark transition-colors"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <a
-                  key={item}
-                  href="#"
+                  key={label}
+                  href={href}
                   className="text-[13px] text-charcoal hover:text-green-dark transition-colors"
                 >
-                  {item}
+                  {label}
                 </a>
               )
             )}
@@ -236,7 +320,7 @@ export default function App() {
               ))}
             </div>
             <a
-              href="#contact-us"
+              href="/contact/"
               className="inline-flex items-center bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 hover:opacity-90 transition-opacity"
             >
               Contact Us
@@ -246,7 +330,7 @@ export default function App() {
           {/* Mobile CTA + toggle */}
           <div className="md:hidden flex items-center gap-2.5">
             <a
-              href="#contact-form"
+              href="/contact/"
               className="inline-flex items-center bg-green-dark text-white text-[10px] tracking-[0.16em] uppercase px-3.5 py-2 hover:opacity-90 transition-opacity"
             >
               Contact Us
@@ -265,21 +349,50 @@ export default function App() {
 
         {mobileOpen && (
           <div className="md:hidden bg-white border-t border-stone-100 px-6 py-4 flex flex-col gap-3">
-            {NAV_LINKS.map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-sm text-charcoal py-1"
-                onClick={() => setMobileOpen(false)}
-              >
-                {item}
-              </a>
+            {NAV_LINKS.map(({ label, href, children }) => (
+              <div key={label} className="flex flex-col gap-1">
+                <a
+                  href={href}
+                  className="text-sm text-charcoal py-1"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {label}
+                </a>
+                {children?.map((child) => (
+                  <a
+                    key={child.href}
+                    href={child.href}
+                    className="text-sm text-stone-500 py-1 pl-4"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </div>
             ))}
           </div>
         )}
       </header>
 
+      {page !== "home" && (
+        <section className="pt-40 pb-16 bg-l-cream text-center">
+          <div className="max-w-3xl mx-auto px-6">
+            <h1
+              className="text-4xl md:text-5xl font-medium text-charcoal mb-6"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              {PAGE_HEADERS[page].title}
+            </h1>
+            <div className="w-12 h-1 bg-green-dark mx-auto mb-6" />
+            <p className="text-stone-500 text-[15px] leading-relaxed">
+              {PAGE_HEADERS[page].intro}
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* ── HERO (full-width bg + left fade) ────────── */}
+      {page === "home" && (
       <section className="relative pt-16 min-h-screen overflow-hidden">
         {/* Full-width background image */}
         <div
@@ -311,7 +424,7 @@ export default function App() {
               generations.
             </p>
             <a
-              href="#"
+              href="/portfolio/"
               className="inline-block bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-9 py-4 hover:opacity-90 transition-opacity"
             >
               View Portfolio
@@ -319,8 +432,10 @@ export default function App() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── WHAT WE CREATE (white bg, no top border) ── */}
+      {(page === "home" || page === "services") && (
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 text-center mb-3">
@@ -353,8 +468,10 @@ export default function App() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── PORTFOLIO HIGHLIGHTS ────────────────────── */}
+      {(page === "home" || page === "portfolio") && (
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 text-center mb-10">
@@ -387,18 +504,22 @@ export default function App() {
               </div>
             ))}
           </div>
+          {page === "home" && (
           <div className="text-center">
              <a
-              href="#"
+              href="/portfolio/"
               className="inline-block bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-9 py-4 hover:opacity-90 transition-opacity"
             >
               View More
             </a>
           </div>
+          )}
         </div>
       </section>
+      )}
 
       {/* ── ABOUT ───────────────────────────────────── */}
+      {(page === "home" || page === "about-us") && (
       <section className="py-10 bg-l-cream">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -421,12 +542,14 @@ export default function App() {
               create timeless visuals that reflect your unique story and
               emotions.
             </p>
+            {page === "home" && (
             <a
-              href="#"
+              href="/about-us/"
               className="inline-block bg-green-dark text-white text-[11px] tracking-[0.2em] uppercase px-9 py-4 hover:opacity-90 transition-opacity"
             >
               About Us
             </a>
+            )}
           </div>
           <div>
             <img
@@ -437,8 +560,10 @@ export default function App() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── TESTIMONIAL (parallax fixed bg) ─────────── */}
+      {(page === "home" || page === "about-us") && (
       <section
         className="relative min-h-[440px] md:min-h-[500px] flex items-center"
         onMouseEnter={() => setIsTestimonialHovered(true)}
@@ -485,8 +610,10 @@ export default function App() {
           </p>
         </div>
       </section>
+      )}
 
       {/* ── LET'S TELL YOUR STORY ───────────────────── */}
+      {page !== "portfolio" && page !== "about-us" && (
       <section id="contact-us" className="bg-l-cream m-7 p-7 scroll-mt-4">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch">
           <div className="relative min-h-[520px]">
@@ -662,6 +789,7 @@ export default function App() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── FOOTER (dark forest green) ───────────────── */}
       <footer className="bg-green-footer text-white">
@@ -731,7 +859,7 @@ export default function App() {
             {SERVICE_LINKS.map((item) => (
               <a
                 key={item}
-                href="#"
+                href="/services/"
                 className="text-[13px] text-white/50 hover:text-white transition-colors"
               >
                 {item}
@@ -763,7 +891,7 @@ export default function App() {
             <p className="text-[13px] text-white/50">hello@avpstudio.com</p>
             <p className="text-[13px] text-white/50">California, USA</p>
             <a
-              href="#"
+              href="/contact/"
               className="mt-2 inline-block border border-white/30 text-white/70 text-[11px] tracking-[0.18em] uppercase px-5 py-2.5 hover:border-white hover:text-white transition-all"
             >
               Book Now

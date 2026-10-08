@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import { viteSingleFile } from 'vite-plugin-singlefile'
 
 
 function figmaAssetResolver() {
@@ -18,10 +17,9 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     figmaAssetResolver(),
-    viteSingleFile(),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),
@@ -31,6 +29,22 @@ export default defineConfig({
     alias: {
       // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
+    },
+  },
+
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        'about-us': path.resolve(__dirname, 'about-us/index.html'),
+        contact: path.resolve(__dirname, 'contact/index.html'),
+        portfolio: path.resolve(__dirname, 'portfolio/index.html'),
+        'portfolio-1': path.resolve(__dirname, 'portfolio/portfolio-1/index.html'),
+        'portfolio-2': path.resolve(__dirname, 'portfolio/portfolio-2/index.html'),
+        services: path.resolve(__dirname, 'services/index.html'),
+        'service-1': path.resolve(__dirname, 'services/service-1/index.html'),
+        'service-2': path.resolve(__dirname, 'services/service-2/index.html'),
+      },
     },
   },
 
