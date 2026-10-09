@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import { AboutIntro, AboutOutro } from "@/app/pages/AboutPage";
+import { ComingSoon, isComingSoon } from "@/app/pages/ComingSoon";
 import heroImage from "@/imports/hero-image.jpg?w=1920&format=webp";
 import heroSrcSet from "@/imports/hero-image.jpg?w=768;1280;1920&format=webp&as=srcset";
 import logoImg from "@/imports/logo-no-bg.png?w=240&format=webp";
@@ -427,7 +428,9 @@ export default function App({ page }: { page: Page }) {
 
       {page === "about-us" && <AboutIntro />}
 
-      {page !== "home" && page !== "about-us" && (
+      {isComingSoon(page) && <ComingSoon page={page} whatsappLink={WHATSAPP_CHAT_LINK} />}
+
+      {page === "contact" && (
         <section className="pt-40 pb-16 bg-l-cream text-center">
           <div className="max-w-3xl mx-auto px-6">
             <h1
@@ -492,7 +495,7 @@ export default function App({ page }: { page: Page }) {
       )}
 
       {/* ── WHAT WE CREATE (white bg, no top border) ── */}
-      {(page === "home" || page === "services") && (
+      {page === "home" && (
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 text-center mb-3">
@@ -528,7 +531,7 @@ export default function App({ page }: { page: Page }) {
       )}
 
       {/* ── PORTFOLIO HIGHLIGHTS ────────────────────── */}
-      {(page === "home" || page === "portfolio") && (
+      {page === "home" && (
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[20px] uppercase tracking-[0.28em] text-stone-900 text-center mb-10">
@@ -680,7 +683,7 @@ export default function App({ page }: { page: Page }) {
       {page === "about-us" && <AboutOutro />}
 
       {/* ── LET'S TELL YOUR STORY ───────────────────── */}
-      {page !== "portfolio" && page !== "about-us" && (
+      {(page === "home" || page === "contact") && (
       <section id="contact-us" className="bg-l-cream m-7 p-7 scroll-mt-4">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch">
           <div className="relative min-h-[520px]">
