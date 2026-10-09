@@ -10,6 +10,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
+import { AboutIntro, AboutOutro } from "@/app/pages/AboutPage";
 import heroImage from "@/imports/hero-image.jpg?w=1920&format=webp";
 import heroSrcSet from "@/imports/hero-image.jpg?w=768;1280;1920&format=webp&as=srcset";
 import logoImg from "@/imports/logo-no-bg.png?w=240&format=webp";
@@ -424,7 +425,9 @@ export default function App({ page }: { page: Page }) {
         )}
       </header>
 
-      {page !== "home" && (
+      {page === "about-us" && <AboutIntro />}
+
+      {page !== "home" && page !== "about-us" && (
         <section className="pt-40 pb-16 bg-l-cream text-center">
           <div className="max-w-3xl mx-auto px-6">
             <h1
@@ -577,7 +580,7 @@ export default function App({ page }: { page: Page }) {
       )}
 
       {/* ── ABOUT ───────────────────────────────────── */}
-      {(page === "home" || page === "about-us") && (
+      {page === "home" && (
       <section className="py-10 bg-l-cream">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -673,6 +676,8 @@ export default function App({ page }: { page: Page }) {
         </div>
       </section>
       )}
+
+      {page === "about-us" && <AboutOutro />}
 
       {/* ── LET'S TELL YOUR STORY ───────────────────── */}
       {page !== "portfolio" && page !== "about-us" && (
